@@ -4,6 +4,7 @@
     <el-aside v-if="toolbarVisible"
               width="300px"
               style="background-color: rgb(238, 241, 246)">
+      <editor-toolbar></editor-toolbar>
     </el-aside>
 
     <el-container direction="vertical">
@@ -41,18 +42,18 @@
           chapterHash: this.chapter
         }
 
-        this.$http.get('editor.getBlocks',{params})
+        this.$http.get('editor.getAll',{params})
           .then(res => {
-
+            console.log(res);
             let blocks = res.body.blocks;
 
             blocks.forEach(block => {
               setBlock(block)
             });
 
-
             this.$store.commit('setBlocks', blocks);
-            console.log(res);
+            this.$store.commit('setChapters', res.body.chapters);
+            this.$store.commit('setParams', res.body.params);
           })
       },
       computed: {

@@ -17,7 +17,7 @@
 
       <td class="block-params__icon block-params__icon-connector"
           @mousedown.stop="handleDown($event,param)">
-        <icon :name="getIcon(param)" :scale="0.55" :class="getClass(param)"></icon>
+        <icon :name="getIcon(param)" :scale="0.55" :class="getClass(param)" :style="getStyleIcon(param)"></icon>
       </td>
 
     </tr>
@@ -38,11 +38,21 @@
         getClass(param){
           return 'OUT' + ' ' + (param.connector ? 'OUT:' + param.param_id + ':' + param.connector + ':' + param.type : null)
         },
+        getStyleIcon(param){
+          switch (param.type){
+            case '2':
+            case 2:
+              return 'color:#ffd200';
+          }
+        },
         getIcon(param){
           switch (param.type){
             case '1':
             case 1:
-              return param.connector ? 'circle' : 'circle-o'
+              return param.connector ? 'circle' : 'circle-o';
+            case '2':
+            case 2:
+              return param.connector ? 'square' : 'square-o';
           }
         },
         deleteConnection(param){

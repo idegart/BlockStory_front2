@@ -4,8 +4,10 @@ export default {
       gameHash: '',
       chapterHash: ''
     },
-    toolbarVisible: false,
+    toolbarVisible: true,
     blocks: [],
+    chapters: [],
+    params: [],
     container: null,
     editorTextEditor: {
       visible: false,
@@ -138,6 +140,15 @@ export default {
         },
         param: {}
       };
+    },
+    setChapters(state, payload){
+      state.chapters = payload;
+    },
+    setParams(state, payload){
+      state.params = payload;
+    },
+    addParam(state, payload){
+      state.params.push(payload);
     }
   },
   getters: {
@@ -164,6 +175,12 @@ export default {
     },
     getConnection(state){
       return state.connection;
+    },
+    getChapters(state){
+      return state.chapters;
+    },
+    getParams(state){
+      return state.params;
     }
   }
 }

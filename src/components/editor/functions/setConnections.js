@@ -11,6 +11,9 @@ export default function toConnect(connection) {
     case 'text_block_select':
       params = connectTextSelect(from, to);
       break;
+    case 'random':
+      params = connectRandom(from, to);
+      break;
   }
 
   return params;
@@ -30,7 +33,12 @@ function connectStarter(from, to) {
 function connectTextSelect(from, to) {
 
   if (from.param.data === 'timer'){
-    return;
+
+    from.block.params.out[4].connector = to.hasOwnProperty('param') ? to.param.param_id : null;
+
+    return{
+      timer_next_block: to.hasOwnProperty('block') ? to.block.hash : null
+    }
   }
 
   let answer = from.param.data.split('_'),
@@ -40,6 +48,18 @@ function connectTextSelect(from, to) {
 
   return {
     answer_num: answerNum,
+    next_block: to ? to.block ? to.block.hash || null : null : null
+  };
+}
+
+function connectRandom(from, to) {
+  let random = from.param.data.split('_'),
+      randomNum = random[1];
+
+  from.block.params.out[randomNum].connector = to ? to.param ? to.param.param_id || null : null : null;
+
+  return {
+    random_num: randomNum,
     next_block: to ? to.block ? to.block.hash || null : null : null
   };
 }

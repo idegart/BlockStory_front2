@@ -41,6 +41,8 @@
 
           let params = toConnect(connections);
 
+          console.log(connections);
+
           let data = {
             block_hash: connections.start.block.hash,
             ...params

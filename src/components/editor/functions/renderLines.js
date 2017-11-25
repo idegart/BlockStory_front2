@@ -38,15 +38,19 @@ function render(ctx, connections) {
 
     switch (connections[i].type){
       case "1":
+      case 1:
         ctx.strokeStyle = "#ffffff";
         break;
       case "2":
+      case 2:
         ctx.strokeStyle = "#ffd200";
         break;
       case "3":
+      case 3:
         ctx.strokeStyle = "#13CE66";
         break;
       case "10":
+      case 10:
         ctx.strokeStyle = "#ce091b";
         break;
     }

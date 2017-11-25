@@ -97,8 +97,8 @@
           }
 
           if (typeof this.scroll.top === 'number'){
-            this.$refs.mainContainer.$el.scrollTop += this.scroll.top - e.pageY;
-            this.$refs.mainContainer.$el.scrollLeft += this.scroll.left - e.pageX;
+            this.$refs.mainContainer.$el.scrollTop += (this.scroll.top - e.pageY) * 5;
+            this.$refs.mainContainer.$el.scrollLeft += (this.scroll.left - e.pageX) * 5;
           }
 
           this.scroll.top = e.pageY;

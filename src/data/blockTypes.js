@@ -60,6 +60,7 @@ const types = [
         value: 'advertising',
         label: 'Реклама',
         icon: 'usd',
+        disabled: true,
         color: '',
         description: 'В этом блоке будет размещена реклама, с помощью которой Вы сможете монетизировать свой проект'
       },
@@ -88,7 +89,7 @@ const types = [
         value: 'random',
         label: 'Рандом',
         icon: 'random',
-        color: '',
+        color: '#878D99',
         description: 'В этом блоке можно задать рандом следующего блока'
       }
     ]

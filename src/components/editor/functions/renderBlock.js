@@ -1,3 +1,5 @@
+import limitWords from '../../../functions/limitWords';
+
 export {setBlock}
 
 function setBlock(block) {
@@ -13,6 +15,9 @@ function setBlock(block) {
       break;
     case 'text_block_select':
       setTextSelectBlock(block);
+      break;
+    case 'random':
+      randomBlock(block);
       break;
   }
 
@@ -68,10 +73,36 @@ function setTextSelectBlock(block) {
     let answer = block.extra.answers[i];
     let paramOut = emptyParamOut();
 
-    paramOut.title = answer.text || ('Ответ #' + (i + 1));
+    paramOut.title = answer.text ? limitWords(answer.text, 12) : 'Answer #' + (i + 1);
     paramOut.next_block = paramOut.connector = answer.next_block || null;
 
     paramOut.data = 'answer_' + i;
+
+    block.params.out.push(paramOut);
+  }
+
+  let paramOut = emptyParamOut();
+  paramOut.title = 'Timer';
+  paramOut.next_block = paramOut.connector = block.extra.timer.next_block || null;
+  paramOut.data = 'timer';
+  paramOut.type = 2;
+
+  block.params.out.push(paramOut);
+}
+
+function randomBlock(block) {
+  let paramIN = emptyParamIn();
+  paramIN.param_id = block.hash;
+  block.params.in.push(paramIN);
+
+  for (let i=0; i < block.extra.random.length; i++){
+    let random = block.extra.random[i];
+    let paramOut = emptyParamOut();
+
+    paramOut.title = ('Next #' + (i + 1));
+    paramOut.next_block = paramOut.connector = random.next_block || null;
+
+    paramOut.data = 'next_' + i;
 
     block.params.out.push(paramOut);
   }

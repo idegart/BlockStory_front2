@@ -1,7 +1,7 @@
 <template>
   <div class="block-body">
 
-    <div v-if="!(['starter'].indexOf(block.type)+1)"
+    <div v-if="!(['starter','random'].indexOf(block.type)+1)"
          style="text-align: center;padding: 5px">
       <el-button @click="showBody=!showBody" round size="mini" style="padding: 3px 25px">
         <icon :name="showBody ? 'chevron-up' : 'chevron-down'" :scale="0.9"></icon>
