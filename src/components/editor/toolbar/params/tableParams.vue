@@ -26,7 +26,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">Удалить</el-button>
+            @click="handleDelete(scope.row)">Удалить</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -42,8 +42,18 @@
         addParam
       },
       methods: {
-        handleDelete(index, scope){
-          console.log(index, scope);
+        handleDelete(param){
+
+          let params = {
+            game_hash: this.$store.getters.getEditor.gameHash,
+            param_hash: param.hash
+          };
+
+          this.$http.delete('param', {body: params})
+            .then(res => {
+              console.log(res);
+              this.$store.commit('deleteParam', param);
+            })
         }
       },
       computed: {

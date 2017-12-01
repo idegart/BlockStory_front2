@@ -4,9 +4,11 @@ export default {
       gameHash: '',
       chapterHash: ''
     },
+    alias: '',
     toolbarVisible: true,
     blocks: [],
     chapters: [],
+    chapterStarter: '',
     params: [],
     container: null,
     editorTextEditor: {
@@ -88,7 +90,7 @@ export default {
           left: payload.hasOwnProperty('position') ? payload.position.left : 0
         },
         param: payload.param || {}
-      }
+      };
 
       if (!payload.hasOwnProperty('block')) {
         state.connection.dragging.position = {
@@ -149,6 +151,18 @@ export default {
     },
     addParam(state, payload){
       state.params.push(payload);
+    },
+    deleteParam(state, payload){
+      state.params.splice(state.params.indexOf(payload),1);
+    },
+    setChapterStarter(state, payload){
+      state.chapterStarter = payload;
+    },
+    addChapter(state, payload){
+      state.chapters.push(payload);
+    },
+    setAlias(state, payload){
+      state.alias = payload;
     }
   },
   getters: {
@@ -181,6 +195,12 @@ export default {
     },
     getParams(state){
       return state.params;
+    },
+    getChapterStarter(state){
+      return state.chapterStarter;
+    },
+    getAlias(state){
+      return state.alias;
     }
   }
 }

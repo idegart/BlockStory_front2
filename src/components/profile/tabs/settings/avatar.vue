@@ -32,42 +32,47 @@
         onFileSizeExceed(){},
         avatarRemove(){
           let data = {
-            image_remove: 'avatar',
+            image: 'avatar',
+            image_hash: null
           };
+
+          this.user.avatar = null;
 
           this.$http.post('user.update', data)
             .then(res => {
-              let status = res.body.error.status;
-              if (status !== 1){
-                return;
-              }
               this.$message({
                 message: this.$t('updated'),
                 type: 'success'
               });
-              this.user.avatar = null;
-            })
+            });
         },
         updateAvatar(){
           let data = {
-            image: 'avatar',
+            type: 'avatar',
             file: this.croppa.generateDataUrl('image/jpeg'),
-            type: 'base64'
+            options: {
+              type: 'base64'
+            }
           };
 
-          this.$http.post('user.update', data)
+          this.$http.post('image.upload', data)
             .then(res => {
-              let status = res.body.error.status;
+              console.log(res);
 
-              if (status !== 1){
+              this.user.avatar = res.body.image.path;
 
-                return;
-              }
-              this.$message({
-                message: this.$t('updated'),
-                type: 'success'
-              });
-              this.user.avatar = res.body.image.src;
+              let data = {
+                image: 'avatar',
+                image_hash: res.body.image.hash
+              };
+
+              this.$http.post('user.update', data)
+                .then(res => {
+                  this.$message({
+                    message: this.$t('updated'),
+                    type: 'success'
+                  });
+                });
             })
         }
       }

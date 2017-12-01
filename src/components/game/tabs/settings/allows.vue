@@ -9,17 +9,17 @@
     </el-form-item>
 
     <el-form-item label="Сохранения">
-      <el-switch @change="updateSettings('saves')" v-model="game.allows.saves"></el-switch>
+      <el-switch @change="updateSettings('saves')" v-model="game.allows.saves" disabled></el-switch>
     </el-form-item>
 
     <el-form-item label="Статистика">
       <el-tooltip class="item" effect="dark" content="Статистика будет доступна всем пользователям" placement="right">
-        <el-switch @change="updateSettings('statistics')" v-model="game.allows.statistics"></el-switch>
+        <el-switch @change="updateSettings('statistics')" v-model="game.allows.statistics" disabled></el-switch>
       </el-tooltip>
     </el-form-item>
 
     <el-form-item label="Майнинг">
-        <el-switch @change="updateSettings('mining')" v-model="game.allows.mining"></el-switch>
+        <el-switch @change="updateSettings('mining')" v-model="game.allows.mining" disabled></el-switch>
     </el-form-item>
   </div>
 

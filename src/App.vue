@@ -17,6 +17,7 @@
         <main-footer></main-footer>
       </el-footer>
     </el-container>
+
   </div>
 </template>
 
@@ -27,6 +28,9 @@
     name: 'app',
     components: {
       mainNavbar, mainFooter
+    },
+    metaInfo: {
+      title: 'BlockStory'
     },
     data: () => ({
       authLoading: false
@@ -100,7 +104,7 @@
   .el-message-box{
     max-width: 90%;
   }
-  footer{
-
+  ::-webkit-scrollbar {
+    display: none;
   }
 </style>

@@ -65,7 +65,6 @@
     color: #ffffff;
     font-size: 14px;
     box-shadow: 7px 7px 20px rgba(0,0,0,0.9);
-    cursor: move;
     width: 250px;
     min-height: 50px;
     overflow: hidden;

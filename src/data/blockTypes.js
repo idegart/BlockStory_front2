@@ -14,7 +14,7 @@ const types = [
         value: 'next_chapter',
         label: 'Переход на главу',
         icon: 'angle-double-right',
-        color: '',
+        color: '#FA5555',
         description: 'Связующий блок между главами'
       }
     ]
@@ -31,10 +31,11 @@ const types = [
         description: 'Можно задать до 4х вариантов ответов'
       },
       {
-        value: 'text_block_answer',
+        value: 'text_block_input',
         label: 'С полем ввода',
-        icon: 'comments-o',
-        color: '',
+        icon: 'keyboard-o',
+        color: '#67C23A',
+        disabled: true,
         description: 'В данной блоке пользователь будет вводить свои ответы'
       },
     ]
@@ -44,11 +45,34 @@ const types = [
     label: 'Параметры',
     children: [
       {
-        value: 'param_set',
+        value: 'set_param',
         label: 'Установить параметр',
-        icon: 'comments-o',
-        color: '',
+        icon: 'download',
+        color: '#409EFF',
+        disabled: true,
         description: 'В этом блоке можно присваивать параметры'
+      }
+    ]
+  },
+  {
+    value: 'compare',
+    label: 'Сравнения',
+    children: [
+      {
+        value: 'arrows-h',
+        label: 'Равно',
+        icon: 'usd',
+        color: '',
+        disabled: true,
+        description: 'В этом блоке будет проверка на равенство'
+      },
+      {
+        value: 'more',
+        label: 'Больше/меньше',
+        icon: 'chevron-right',
+        color: '',
+        disabled: true,
+        description: 'В этом блоке будет проверка на больше/меньше'
       }
     ]
   },
@@ -69,6 +93,7 @@ const types = [
         label: 'Донат',
         icon: 'money',
         color: '',
+        disabled: true,
         description: 'В этом блоке будет возможность делать донаты автору'
       },
       {
@@ -76,6 +101,7 @@ const types = [
         label: 'Майнинг',
         icon: '',
         color: '',
+        disabled: true,
         description: 'В данный блок будет помещена капча, которую пользователь должен пройти и таким образом принесет Вам немного сатошей.'
       }
     ]

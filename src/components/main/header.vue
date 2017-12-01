@@ -28,7 +28,7 @@
       hoverMode="grab"
       :clickEffect="true"
       clickMode="push"
-    >
+      style="overflow: hidden">
     </vue-particles>
 
   </div>
@@ -82,11 +82,12 @@
     text-align: center;
   }
   .main-title {
+    max-width: 80%;
     color: #fff;
     z-index: 999;
   }
   .main-title h2 {
-    font-size: 3rem;
+    font-size: 2em;
     font-family: 'Teko', sans-serif;
     text-shadow: 8px 8px #000000;
     text-transform: uppercase;

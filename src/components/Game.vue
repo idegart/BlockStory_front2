@@ -23,6 +23,11 @@
       components: {
         gameCard, gameTabs
       },
+      metaInfo(){
+        return {
+          titleTemplate: '%s | ' + this.game.title
+        }
+      },
       data: () => ({
         game: {}
       }),

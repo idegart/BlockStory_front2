@@ -34,44 +34,48 @@
       backgroundRemove(){
         let data = {
           hash: this.game.hash,
-          image_remove: 'background',
+          image: 'background',
+          image_hash: null
         };
-        console.log('test');
+
+        this.game.extra.background.image = null;
+
         this.$http.post('game.update', data)
           .then(res => {
-            console.log(res);
-            let status = res.body.error.status;
-            if (status !== 1){
-              return;
-            }
             this.$message({
               message: this.$t('updated'),
               type: 'success'
             });
-            this.game.extra.background.image = null;
-          })
+          });
       },
       updateBackground(){
         let data = {
-          hash: this.game.hash,
-          image: 'background',
+          type: 'gameBackground',
           file: this.croppa.generateDataUrl('image/jpeg'),
-          type: 'base64'
+          options: {
+            type: 'base64'
+          }
         };
 
-        this.$http.post('game.update', data)
+        this.$http.post('image.upload', data)
           .then(res => {
-            let status = res.body.error.status;
+            console.log(res);
 
-            if (status !== 1){
+            this.game.extra.background.image = res.body.image.path;
 
-              return;
-            }
-            this.$message({
-              message: this.$t('updated'),
-              type: 'success'
-            });
-            this.game.extra.background.image = res.body.image.src;
+            let data = {
+              hash: this.game.hash,
+              image: 'background',
+              image_hash: res.body.image.hash
+            };
+
+            this.$http.post('game.update', data)
+              .then(res => {
+                this.$message({
+                  message: this.$t('updated'),
+                  type: 'success'
+                });
+              });
           })
       }
     }

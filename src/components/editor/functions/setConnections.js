@@ -11,8 +11,14 @@ export default function toConnect(connection) {
     case 'text_block_select':
       params = connectTextSelect(from, to);
       break;
+    case 'text_block_input':
+      params = connectTextInput(from, to);
+      break;
     case 'random':
       params = connectRandom(from, to);
+      break;
+    case 'set_param':
+      params = connectSetParam(from, to);
       break;
   }
 
@@ -52,6 +58,24 @@ function connectTextSelect(from, to) {
   };
 }
 
+function connectTextInput(from, to) {
+
+  if (from.param.data === 'timer'){
+
+    from.block.params.out[1].connector = to.hasOwnProperty('param') ? to.param.param_id : null;
+
+    return{
+      timer_next_block: to.hasOwnProperty('block') ? to.block.hash : null
+    }
+  }
+
+  from.block.params.out[0].connector = to ? to.param ? to.param.param_id || null : null : null;
+
+  return {
+    next_block: to.hasOwnProperty('block') ? to.block.hash : null
+  };
+}
+
 function connectRandom(from, to) {
   let random = from.param.data.split('_'),
       randomNum = random[1];
@@ -61,5 +85,13 @@ function connectRandom(from, to) {
   return {
     random_num: randomNum,
     next_block: to ? to.block ? to.block.hash || null : null : null
+  };
+}
+function connectSetParam(from, to) {
+
+  from.block.params.out[0].connector = to.hasOwnProperty('block') ? to.block.hash : null
+
+  return {
+    next_block: to.hasOwnProperty('block') ? to.block.hash : null
   };
 }

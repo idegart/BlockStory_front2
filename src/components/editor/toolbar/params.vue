@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="toolbar-item" style="text-align: center">
+    <div class="toolbar-item">
       <el-button @click="paramsVisible=true" round>Открыть параметры</el-button>
     </div>
 
@@ -36,3 +36,12 @@
       }
     }
 </script>
+
+<style scoped>
+  .toolbar-item{
+    margin: 10px;
+    padding: 10px;
+    border-top: 1px solid black;
+    text-align: center;
+  }
+</style>

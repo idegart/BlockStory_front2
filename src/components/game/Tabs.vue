@@ -12,10 +12,10 @@
     <el-tab-pane label="Сохранения" name="saves">
       <tab-saves :game="game"></tab-saves>
     </el-tab-pane>
-    <el-tab-pane v-if="game.allows.statistics || authUser.hash && (authUser.hash==game.user.hash || isCoauthor)"
-                 label="Статистика" name="statistic">
-      <tab-statistic :game="game"></tab-statistic>
-    </el-tab-pane>
+    <!--<el-tab-pane v-if="game.allows.statistics || authUser.hash && (authUser.hash==game.user.hash || isCoauthor)"-->
+                 <!--label="Статистика" name="statistic">-->
+      <!--<tab-statistic :game="game"></tab-statistic>-->
+    <!--</el-tab-pane>-->
     <el-tab-pane v-if="authUser.hash && (authUser.hash==game.user.hash || isCoauthor)"
                  label="Настройки" name="settings">
       <tab-settings :game="game"></tab-settings>
@@ -28,12 +28,12 @@
   import tabComments from './tabs/comments.vue';
   import tabCoAuthors from './tabs/coAuthors.vue';
   import tabSaves from './tabs/saves.vue';
-  import tabStatistic from './tabs/statistic.vue';
+//  import tabStatistic from './tabs/statistic.vue';
   import tabSettings from './tabs/settings.vue';
     export default {
       props: ['game'],
       components: {
-        tabCommon,tabComments,tabCoAuthors,tabSaves,tabStatistic,tabSettings
+        tabCommon,tabComments,tabCoAuthors,tabSaves,tabSettings
       },
       data: () => ({
         activeTab: 'common'

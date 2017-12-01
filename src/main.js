@@ -25,11 +25,24 @@ Vue.use(ElementUI, {locale});
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
-Vue.http.options.root = process.env.NODE_ENV === 'development' ? 'http://v2.api.blockstory.ru/' : '';
+Vue.http.options.root = process.env.NODE_ENV === 'development'
+  ? 'http://v2.api.blockstory.ru/'
+  : 'http://v2.api.blockstory.ru/';
+
+Vue.http.interceptors.push((request, next) => {
+  next(response => {
+    if (response.status !== 200){
+      alert(JSON.stringify(response));
+    }
+  });
+});
 
 import 'vue-croppa/dist/vue-croppa.min.css';
 import Croppa from 'vue-croppa';
 Vue.use(Croppa);
+//
+// import Meta from 'vue-meta'
+// Vue.use(Meta);
 
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue';

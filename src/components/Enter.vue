@@ -22,6 +22,9 @@
   export default {
     components: {
       enterEmail, enterVk
-    }
+    },
+    metaInfo: {
+      titleTemplate: '%s | Enter'
+    },
   }
 </script>

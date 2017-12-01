@@ -7,7 +7,7 @@
     </el-steps>
 
 
-    <el-form label-width="120px" v-if="activeStep==0">
+    <el-form v-if="activeStep==0">
 
       <el-form-item :label="$t('enter_email')">
         <el-input v-model="email" :autofocus="true" :placeholder="$t('enter_email')"></el-input>
@@ -15,13 +15,13 @@
 
       <el-form-item>
         <el-button type="success" @click="toEnter">{{ $t('to_enter') }}</el-button>
-        <el-button type="primary" @click="toReg">{{ $t('to_register') }}</el-button>
+        <el-button type="primary" @click="toReg">Регистрация</el-button>
       </el-form-item>
 
     </el-form>
 
 
-    <el-form label-width="120px" v-if="activeStep==1">
+    <el-form v-if="activeStep==1">
 
       <el-form-item :label="$t('enter_password')">
         <el-input v-model="pass" :type="passVisible?'password':'text'" :placeholder="$t('enter_password')">
@@ -39,7 +39,7 @@
     </el-form>
 
 
-    <el-form label-width="120px" v-if="activeStep==2">
+    <el-form v-if="activeStep==2">
 
       <el-form-item :label="$t('enter_key')">
         <el-input v-model="key" @input="autoKey" :placeholder="$t('enter_key')"></el-input>

@@ -33,45 +33,89 @@
         coverRemove(){
           let data = {
             hash: this.game.hash,
-            image_remove: 'cover',
+            image: 'cover',
+            image_hash: null
           };
+
+          this.game.cover = null;
 
           this.$http.post('game.update', data)
             .then(res => {
-              let status = res.body.error.status;
-              if (status !== 1){
-                return;
-              }
               this.$message({
                 message: this.$t('updated'),
                 type: 'success'
               });
-              this.user.avatar = null;
-            })
+            });
+//          let data = {
+//            hash: this.game.hash,
+//            image_remove: 'cover',
+//          };
+//
+//          this.$http.post('game.update', data)
+//            .then(res => {
+//              let status = res.body.error.status;
+//              if (status !== 1){
+//                return;
+//              }
+//              this.$message({
+//                message: this.$t('updated'),
+//                type: 'success'
+//              });
+//              this.user.avatar = null;
+//            })
         },
         updateCover(){
           let data = {
-            hash: this.game.hash,
-            image: 'cover',
+            type: 'cover',
             file: this.croppa.generateDataUrl('image/jpeg'),
-            type: 'base64'
+            options: {
+              type: 'base64'
+            }
           };
 
-          this.$http.post('game.update', data)
+          this.$http.post('image.upload', data)
             .then(res => {
               console.log(res);
-              let status = res.body.error.status;
 
-              if (status !== 1){
+              this.game.cover = res.body.image.path;
 
-                return;
-              }
-              this.$message({
-                message: this.$t('updated'),
-                type: 'success'
-              });
-              this.game.cover = res.body.image.src;
+              let data = {
+                hash: this.game.hash,
+                image: 'cover',
+                image_hash: res.body.image.hash
+              };
+
+              this.$http.post('game.update', data)
+                .then(res => {
+                  console.log(res);
+                  this.$message({
+                    message: this.$t('updated'),
+                    type: 'success'
+                  });
+                });
             })
+//          let data = {
+//            hash: this.game.hash,
+//            image: 'cover',
+//            file: this.croppa.generateDataUrl('image/jpeg'),
+//            type: 'base64'
+//          };
+//
+//          this.$http.post('game.update', data)
+//            .then(res => {
+//              console.log(res);
+//              let status = res.body.error.status;
+//
+//              if (status !== 1){
+//
+//                return;
+//              }
+//              this.$message({
+//                message: this.$t('updated'),
+//                type: 'success'
+//              });
+//              this.game.cover = res.body.image.src;
+//            })
         }
       }
     }

@@ -42,13 +42,19 @@
 
     </div>
 
+    <add-extra :block="block"></add-extra>
+
   </div>
 </template>
 
 <script>
   import limitWords from '../../../../../../functions/limitWords';
+  import addExtra from './addText/addExtra.vue';
     export default {
       props: ['block'],
+      components: {
+        addExtra
+      },
       methods: {
         changeAnswer(answer, index){
           this.$refs['inputAnswer_' + index][0].$el.children[0].blur()

@@ -3,6 +3,7 @@
     <el-select
       v-model="value"
       :remote-method="searchTag"
+      disabled
       remote
       :loading="loading"
       multiple
@@ -11,7 +12,7 @@
       :multiple-limit="5"
       clearable
       style="width: 100%"
-      placeholder="Choose tags for your article">
+      placeholder="Choose tags for your game">
       <el-option
         v-for="(item,index) in options"
         :key="index"

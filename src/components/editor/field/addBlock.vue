@@ -11,7 +11,7 @@
         expand-trigger="hover"
       ></el-cascader>
       <el-button @click="addBlock"
-                 :disabled="!selected_type_block"
+                 :disabled="!checkBlocks"
                  type="success"
                  plain
                  style="margin-top: 10px">
@@ -55,12 +55,25 @@
               this.$store.commit('addBlock', block);
               this.$emit('close');
             })
-
-
-//          this.$emit('close');
         }
       },
       computed:{
+        checkBlocks(){
+          if (!this.selected_type_block)
+            return false;
+
+          if (this.blocks.length > 50)
+            return false;
+
+          if (this.selected_type_block === 'starter'){
+            for (let i=0; i < this.blocks.length; i++){
+              if (this.blocks[i].type === 'starter')
+                return false;
+            }
+          }
+
+          return true;
+        },
         getDescriptionOfSelected(){
           let blocks = this.typeBlocks;
           let selectedBlock = this.selectedBlock;
@@ -79,6 +92,9 @@
         },
         editor(){
           return this.$store.getters.getEditor;
+        },
+        blocks(){
+          return this.$store.getters.getBlocks;
         }
       }
     }

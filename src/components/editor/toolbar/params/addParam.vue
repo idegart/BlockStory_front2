@@ -1,11 +1,19 @@
 <template>
-  <div>
+  <div style="max-width: 400px;margin: 20px auto">
+
+    <el-alert
+      v-if="params.length>=10"
+      title="Максимальное число параметров = 10"
+      type="error">
+    </el-alert>
+
     <el-form ref="form"
+             v-if="params.length<10"
              :model="form"
              :rules="rules"
              label-width="120px"
-             size="mini"
-             style="max-width: 400px;margin: 20px auto">
+             v-loading="loading"
+             size="mini">
 
       <el-form-item label="Название" prop="title">
         <el-input v-model="form.title" placeholder="Название параметра"></el-input>
@@ -35,15 +43,22 @@
     export default {
       data() {
         let validTitle = (rule, value, callback) => {
-          let re = /^([A-z0-9]{3,8})$/i;
-          if (value === ''){
+
+          if (value === '')
             callback(new Error('Необходимо ввести название'));
-          } else if (!re.test(value)){
+
+          let re = /^([A-z]{3,8})$/i;
+          if (!re.test(value))
             callback(new Error('Название должно быть от 3 до 8 симвалов и содержать только кирилицу!'));
+
+          for (let i=0; i < this.params.length; i++){
+            let param = this.params[i];
+            if (value === param.title)
+              callback(new Error('Параметры не должны повторяться'));
           }
-          else{
-            callback()
-          }
+
+          callback()
+
         };
         let validDefault = (rule, value, callback) => {
           if (value === ''){
@@ -63,6 +78,7 @@
             type: 0,
             default_value: ''
           },
+          loading: false,
           rules: {
             title: [
               { required: true, message: 'Введите название', trigger: 'blur' },
@@ -76,16 +92,21 @@
       },
       methods: {
         addParam(){
+          if (this.loading)
+            return;
+
           this.$refs.form.validate((valid) => {
             if (!valid)
               return;
 
             let data = {
-              game_hash: this.editor.gameHash,
-              title: this.form.title,
+              game_hash: this.$store.getters.getEditor.gameHash,
+              title: this.form.title.toUpperCase(),
               type: this.form.type,
               default_value: this.form.default_value
             };
+
+            this.loading = true;
 
             this.$http.post('param',data)
               .then(res => {
@@ -99,6 +120,7 @@
                   type: 0,
                   default_value: ''
                 }
+                this.loading = false;
               })
           });
         },
@@ -107,9 +129,6 @@
         }
       },
       computed: {
-        editor(){
-          return this.$store.getters.getEditor;
-        },
         params(){
           return this.$store.getters.getParams;
         }

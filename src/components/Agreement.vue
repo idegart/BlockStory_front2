@@ -3,5 +3,9 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+      metaInfo: {
+        titleTemplate: '%s | Agreement'
+      }
+    }
 </script>

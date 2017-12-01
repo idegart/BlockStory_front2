@@ -28,7 +28,30 @@
       },
       methods: {
         setEditor(){
-          this.$store.commit('setEditor',{game: this.game, chapter: this.chapter})
+          this.$store.commit('setLoading', true);
+          this.$store.commit('setEditor',{game: this.game, chapter: this.chapter});
+          this.$store.commit('setContainer', this.$refs.editorContainer);
+          let params = {
+            gameHash: this.game,
+            chapterHash: this.chapter
+          }
+
+          this.$http.get('editor.getAll',{params})
+            .then(res => {
+              console.log(res);
+              let blocks = res.body.blocks;
+
+              blocks.forEach(block => {
+                setBlock(block)
+              });
+
+              this.$store.commit('setBlocks', blocks);
+              this.$store.commit('setChapters', res.body.chapters);
+              this.$store.commit('setParams', res.body.params);
+              this.$store.commit('setChapterStarter', res.body.extra.chapter_starter);
+              this.$store.commit('setAlias', res.body.extra.alias);
+              this.$store.commit('setLoading', false);
+            })
         }
       },
       created(){
@@ -36,25 +59,7 @@
         this.setEditor();
       },
       mounted(){
-        this.$store.commit('setContainer', this.$refs.editorContainer);
-        let params = {
-          gameHash: this.game,
-          chapterHash: this.chapter
-        }
-
-        this.$http.get('editor.getAll',{params})
-          .then(res => {
-            console.log(res);
-            let blocks = res.body.blocks;
-
-            blocks.forEach(block => {
-              setBlock(block)
-            });
-
-            this.$store.commit('setBlocks', blocks);
-            this.$store.commit('setChapters', res.body.chapters);
-            this.$store.commit('setParams', res.body.params);
-          })
+        this.setEditor();
       },
       computed: {
         windowSize(){
@@ -72,6 +77,9 @@
           this.setEditor();
         },
         'this.chapter'(){
+          this.setEditor();
+        },
+        '$route'(){
           this.setEditor();
         }
       }

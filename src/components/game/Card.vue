@@ -38,8 +38,12 @@
                      size="small">
           Начать
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :disabled="!user.hash" command="continue">Продолжить</el-dropdown-item>
-            <el-dropdown-item :disabled="!user.hash" command="saves">Сохранения</el-dropdown-item>
+            <el-dropdown-item :disabled="true" command="continue" disabled>Продолжить</el-dropdown-item>
+            <el-dropdown-item :disabled="true" command="saves" disabled>Сохранения</el-dropdown-item>
+            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='published'" divided command="publish">Опубликовать</el-dropdown-item>
+            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status=='published'" divided command="toSandbox">Unpublic</el-dropdown-item>
+            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='banned'" command="ban">Заблокировать</el-dropdown-item>
+            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status==='banned'" command="unban">Разблокировать</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -62,14 +66,38 @@
       getCover(path){
         return path || require('@/assets/game-default.jpg');
       },
-      startClick(e){
-        console.log(e);
+      startClick(){
+        this.$router.push({name: 'Play', params: {alias: this.game.alias}});
+      },
+      setStatus(status){
+        let data = {
+          hash: this.game.hash,
+          status
+        };
+
+        this.$http.post('game.update', data)
+          .then(res => {
+            console.log(res);
+            this.game.status = status;
+          })
+
       },
       handleCommand(e){
-        if (e === 'saves'){
-          this.$router.push({name: 'Game', params: {alias: this.game.alias}, query:{tab:'saves'}});
+        switch (e){
+          case 'saves':
+            this.$router.push({name: 'Game', params: {alias: this.game.alias}, query:{tab:'saves'}});
+            return;
+          case 'publish':
+            this.setStatus('published');
+            return;
+          case 'ban':
+            this.setStatus('banned');
+            return;
+          case 'unban':
+          case 'toSandbox':
+            this.setStatus('new');
+            return;
         }
-        console.log(e);
       }
     },
     computed:{

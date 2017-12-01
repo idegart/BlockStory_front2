@@ -23,9 +23,15 @@
       components: {
         profileCard, profileTabs
       },
+      metaInfo(){
+        return {
+          titleTemplate: '%s | ' + this.user.nickname
+        }
+      },
       data: () => ({
         user: {
-          extra: {}
+          extra: {},
+          nickname: ''
         }
       }),
       methods: {

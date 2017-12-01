@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Meta from 'vue-meta'
+
+Vue.use(Router);
+Vue.use(Meta);
 
 import Main from '@/components/Main'
 import Profile from '@/components/Profile'
@@ -16,7 +20,7 @@ import Error from '@/components/Error'
 
 import Editor from '@/components/Editor'
 
-Vue.use(Router);
+import Play from '@/components/Play'
 
 export default new Router({
   mode: 'history',
@@ -38,6 +42,11 @@ export default new Router({
       path: '/game/:alias',
       name: 'Game',
       component: Game
+    },
+    {
+      path: '/play/:alias',
+      name: 'Play',
+      component: Play
     },
     {
       path: '/sandbox',

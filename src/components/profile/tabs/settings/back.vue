@@ -33,44 +33,49 @@
       onFileSizeExceed(){},
       backgroundRemove(){
         let data = {
-          image_remove: 'background',
+          image: 'background',
+          image_hash: null
         };
+
+        this.user.extra.background.image = null;
 
         this.$http.post('user.update', data)
           .then(res => {
-            let status = res.body.error.status;
-            if (status !== 1){
-              return;
-            }
             this.$message({
               message: this.$t('updated'),
               type: 'success'
             });
-            this.user.extra.background.image = null;
-          })
+          });
       },
       updateBackground(){
+
         let data = {
-          image: 'background',
+          type: 'background',
           file: this.croppa.generateDataUrl('image/jpeg'),
-          type: 'base64'
+          options: {
+            type: 'base64'
+          }
         };
 
-        this.$http.post('user.update', data)
+        this.$http.post('image.upload', data)
           .then(res => {
-            let status = res.body.error.status;
+            console.log(res);
 
-            if (status !== 1){
+            this.user.extra.background.image = res.body.image.path;
 
-              return;
-            }
-            this.$message({
-              message: this.$t('updated'),
-              type: 'success'
-            });
-            console.log(this.user);
-            this.user.extra.background.image = res.body.image.src;
-          })
+            let data = {
+              image: 'background',
+              image_hash: res.body.image.hash
+            };
+
+            this.$http.post('user.update', data)
+              .then(res => {
+                this.$message({
+                  message: this.$t('updated'),
+                  type: 'success'
+                });
+              });
+          });
       }
     }
   }

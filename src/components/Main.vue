@@ -19,7 +19,10 @@
       components: {
         vkMessages,
         mainHeader,mainGames,mainUsers,mainContacts
-      }
+      },
+      metaInfo: {
+        titleTemplate: '%s'
+      },
     }
 </script>
 
