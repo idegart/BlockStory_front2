@@ -11,7 +11,6 @@
         accept="audio/*"
         :limit="1">
         <el-button size="small" type="primary">Upload audio</el-button>
-        <div slot="tip" class="el-upload__tip">jpg/png files</div>
       </el-upload>
     </div>
   </div>

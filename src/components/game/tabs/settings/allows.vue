@@ -1,5 +1,9 @@
 <template>
   <div>
+    <el-form-item label="18+">
+      <el-switch @change="updateSettings('age')" v-model="game.allows.age"></el-switch>
+    </el-form-item>
+
     <el-form-item label="Доступ по ссылке">
       <el-switch @change="updateSettings('link')" v-model="game.allows.link"></el-switch>
     </el-form-item>

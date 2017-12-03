@@ -3,7 +3,7 @@
 
     <div style="text-align: center">
       <router-link :to="{name: 'Game', params: {alias}}">
-        <el-button>Go to game</el-button>
+        <el-button>{{ $t('backToGame')}}</el-button>
       </router-link>
     </div>
 

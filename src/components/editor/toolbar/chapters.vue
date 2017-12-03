@@ -1,17 +1,19 @@
 <template>
   <div class="toolbar-item">
-    <span>Текущая глава</span>
+    <span>{{ $t('currentChapter')}}</span>
 
     <el-tooltip class="item" effect="dark" placement="top">
 
       <div slot="content">
-        Текущая глава.<br/>
-        В этом блоке необходимо указать главу, в которой хотите редактировать
+        {{ $t('currentChapter')}}
+        <br/>
+        {{ $t('currentChapterDescription')}}
+
 
       </div>
 
       <el-select v-model="chapter"
-                 placeholder="Select chapter">
+                 :placeholder="$t('selectChapter')">
         <el-option
           v-for="(chapter, index) in chapters"
           :key="index"
@@ -22,12 +24,12 @@
 
     </el-tooltip>
 
-    <el-button @click="addChapter" type="text">+Добавить главу</el-button>
+    <el-button @click="addChapter" type="text">+{{$t('addChapter')}}</el-button>
 
     <el-button type="danger"
                :disabled="chapters.length<2"
                @click="deleteChapter"
-               size="mini">Удалить главу
+               size="mini">{{$t('delChapter')}}
     </el-button>
 
   </div>
@@ -59,7 +61,7 @@
             });
         },
         addChapter(){
-          this.$prompt('Введите название главы', 'Добавить главу', {
+          this.$prompt($t('enterTitleChapter'), $t('addChapter'), {
             confirmButtonText: 'OK',
             cancelButtonText: 'Cancel',
             inputValidator: this.validateTitle,
@@ -88,11 +90,11 @@
           let re = /^([A-zА-я0-9Ёё\s]{4,32})$/i;
 
           if (!re.test(title))
-            return 'Название должно быть длинной от 4 до 32 симвалов и включать в себя только буквы и цифры'
+            return this.$t('error_addChapterLength');
 
           for (let i=0;i<this.chapters.length;i++){
             if (this.chapters[i].title === title)
-              return 'Названия глав не должны повторяться'
+              return this.$t('error_addChapterDuplicate');
           }
 
           return true;

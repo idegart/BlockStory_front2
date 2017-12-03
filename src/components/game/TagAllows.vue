@@ -1,6 +1,9 @@
 <template>
   <div>
 
+    <el-tooltip class="item" effect="dark" content="Игра содержит материалы для взрослых!" placement="top">
+      <span v-if="allows.age" style="color: #FA5555;cursor: default">18+</span>
+    </el-tooltip>
     <el-tooltip class="item" effect="dark" content="Игра доступна по прямой ссылке" placement="top">
       <icon v-if="allows.link" name="link" style="color: #878D99"></icon>
     </el-tooltip>

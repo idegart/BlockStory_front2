@@ -1,17 +1,15 @@
 <template>
   <div class="wrap-banner"
        :style="'min-height:'+windowHeight+'px'">
+
     <div class="main-title">
+
       <h2>
         BlockStory
       </h2>
 
-      <vue-typer :text="textArr"></vue-typer>
-        <!--Яркий литературный проект интерактивных историй.-->
-      <!--<p class="subtitle">-->
-        <!--Где важную роль играют сюжет, иллюстрации и увлекательная игровая механика.-->
-      <!--</p>-->
     </div>
+
     <vue-particles
       color="#ffffff"
       :particleOpacity="0.7"
@@ -36,18 +34,10 @@
 
 <script>
   import VueParticles from "../../../node_modules/vue-particles/src/vue-particles/vue-particles.vue";
-  import {VueTyper} from 'vue-typer';
-
   export default {
     components: {
-      VueParticles, VueTyper
+      VueParticles
     },
-    data: () => ({
-      textArr: [
-        'Яркий литературный проект интерактивных историй',
-        'Важную роль играют сюжет, иллюстрации и увлекательная игровая механика'
-      ]
-    }),
     computed: {
       windowHeight(){
         return this.$store.getters.getSize.height - 60 - 60;
@@ -58,8 +48,9 @@
 
 <style scoped>
   #particles-js {
-    background-image: url("../../assets/images/main.jpg");
+    background: url('../../assets/images/main.jpg') no-repeat;
     background-size: cover;
+    background-position: center center;
     opacity: 0.85;
     position: absolute;
     top: 0;

@@ -15,6 +15,13 @@
       </span>
     </el-tooltip>
 
+    <el-tooltip class="item" effect="dark" content="Просмотры" placement="top">
+      <span>
+        <icon name="eye" style="color: #878D99"></icon>
+        {{ game.counter.views }}
+      </span>
+    </el-tooltip>
+
   </div>
 </template>
 

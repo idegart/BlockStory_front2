@@ -1,21 +1,21 @@
 <template>
   <div v-loading="isLoading">
     <el-steps :active="activeStep" finish-status="success" align-center>
-      <el-step :title="$t('email')"></el-step>
-      <el-step :title="$t('password')"></el-step>
-      <el-step v-if="isReg" :title="$t('confirmation')"></el-step>
+      <el-step :title="$t('Email')"></el-step>
+      <el-step :title="$t('Password')"></el-step>
+      <el-step v-if="isReg" :title="$t('Confirmation')"></el-step>
     </el-steps>
 
 
     <el-form v-if="activeStep==0">
 
-      <el-form-item :label="$t('enter_email')">
-        <el-input v-model="email" :autofocus="true" :placeholder="$t('enter_email')"></el-input>
+      <el-form-item :label="$t('enterEmail')">
+        <el-input v-model="email" :autofocus="true" :placeholder="$t('enterEmail')"></el-input>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="success" @click="toEnter">{{ $t('to_enter') }}</el-button>
-        <el-button type="primary" @click="toReg">Регистрация</el-button>
+        <el-button type="success" @click="toEnter">{{ $t('toEnter') }}</el-button>
+        <el-button type="primary" @click="toReg">{{ $t('toRegistration') }}</el-button>
       </el-form-item>
 
     </el-form>
@@ -23,8 +23,8 @@
 
     <el-form v-if="activeStep==1">
 
-      <el-form-item :label="$t('enter_password')">
-        <el-input v-model="pass" :type="passVisible?'password':'text'" :placeholder="$t('enter_password')">
+      <el-form-item :label="$t('enterPassword')">
+        <el-input v-model="pass" :type="passVisible?'password':'text'" :placeholder="$t('enterPassword')">
           <template slot="append">
             <el-button slot="append" icon="el-icon-view" @click="passVisible=!passVisible"></el-button>
           </template>
@@ -32,8 +32,8 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="success" @click="toContinue">{{ $t('continue') }}</el-button>
-        <el-button @click="clearForm">{{ $t('cancel') }}</el-button>
+        <el-button type="success" @click="toContinue">{{ $t('toContinue') }}</el-button>
+        <el-button @click="clearForm">{{ $t('toCancel') }}</el-button>
       </el-form-item>
 
     </el-form>
@@ -41,12 +41,12 @@
 
     <el-form v-if="activeStep==2">
 
-      <el-form-item :label="$t('enter_key')">
-        <el-input v-model="key" @input="autoKey" :placeholder="$t('enter_key')"></el-input>
+      <el-form-item :label="$t('enterKey')">
+        <el-input v-model="key" @input="autoKey" :placeholder="$t('enterKey')"></el-input>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="success" @click="checkKey()">{{ $t('continue') }}</el-button>
+        <el-button type="success" @click="checkKey()">{{ $t('toContinue') }}</el-button>
       </el-form-item>
 
     </el-form>

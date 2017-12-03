@@ -1,19 +1,20 @@
 <template>
   <div class="toolbar-item">
 
-    <span>Начальная глава</span>
+    <span>{{ $t('starterChapter')}}</span>
 
     <el-tooltip class="item" effect="dark" placement="top">
 
       <div slot="content">
-        Начальная глава.<br/>
-        В этом блоке необходимо указать главу, с которой будет начинаться квест
+        {{ $t('starterChapter')}}
+        <br/>
+        {{ $t('starterChapterDescription')}}
 
       </div>
 
       <el-select v-model="chapterStarter"
                  clearable
-                 placeholder="Select chapter">
+                 :placeholder="$t('selectChapter')">
         <el-option
           v-for="(chapter, index) in chapters"
           :key="index"

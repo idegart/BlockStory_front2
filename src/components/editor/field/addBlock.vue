@@ -3,7 +3,7 @@
     <el-col :xs="24" :sm="20" :md="11" :lg="8" :xl="6">
       <el-cascader
         v-model="selectedBlock"
-        placeholder="Выберите блок"
+        :placeholder="$t('selectBlock')"
         :options="typeBlocks"
         filterable
         clearable
@@ -15,7 +15,7 @@
                  type="success"
                  plain
                  style="margin-top: 10px">
-        Добавить
+        {{ $t('toAdd')}}
       </el-button>
     </el-col>
 
@@ -88,7 +88,7 @@
             }
           }
           this.selected_type_block = '';
-          return 'Выберите блок'
+          return this.$t('BlockStory')
         },
         editor(){
           return this.$store.getters.getEditor;

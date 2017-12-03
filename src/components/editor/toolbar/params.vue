@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="toolbar-item">
-      <el-button @click="paramsVisible=true" round>Открыть параметры</el-button>
+      <el-button @click="paramsVisible=true" round>{{ $t('openParams')}}</el-button>
     </div>
 
 
     <el-dialog
-      title="Параметры"
+      :title="$t('Params')"
       :visible="paramsVisible"
       :fullscreen="true"
       :before-close="handleClose">

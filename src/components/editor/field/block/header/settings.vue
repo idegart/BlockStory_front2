@@ -6,7 +6,7 @@
         <icon name="cog" :scale="0.9" :spin="spin"></icon>
       </el-button>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="delete">Удалить блок</el-dropdown-item>
+        <el-dropdown-item command="delete">{{ $t('deleteBlock')}}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>

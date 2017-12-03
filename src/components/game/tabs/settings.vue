@@ -6,6 +6,7 @@
     <game-alias :game="game"></game-alias>
     <game-title :game="game"></game-title>
     <game-description :game="game"></game-description>
+    <game-genre :game="game"></game-genre>
     <game-tags :game="game"></game-tags>
     <game-cover :game="game"></game-cover>
     <game-background :game="game"></game-background>
@@ -33,11 +34,12 @@
   import gamePublish from './settings/publish.vue';
   import gameImageCard from './settings/imageCard.vue';
   import gameAudios from './settings/audios.vue';
+  import gameGenre from './settings/genre.vue';
     export default {
       props: ['game'],
       components: {
         gameEditor,gameAlias,gameTitle,gameAllows,gameCover,gameBackground,gameBackColor,gameDescription,
-        gameTags,gameDelete,gamePublish,gameImageCard,gameAudios
+        gameTags,gameDelete,gamePublish,gameImageCard,gameAudios,gameGenre
       }
     }
 </script>

@@ -49,7 +49,7 @@
 
           let re = /^([A-z]{3,8})$/i;
           if (!re.test(value))
-            callback(new Error('Название должно быть от 3 до 8 симвалов и содержать только кирилицу!'));
+            callback(new Error('Название должно быть от 3 до 8 симвалов и содержать только латиницу!'));
 
           for (let i=0; i < this.params.length; i++){
             let param = this.params[i];

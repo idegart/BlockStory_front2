@@ -8,7 +8,7 @@
       v-show="editText"
       ref="editTextArea"
       size="mini"
-      placeholder="Please Input"
+      :placeholder="$t('inputTitle')"
       @keyup.enter.native="updateTitle"
       style="width: 100%"
       v-model="block.title">

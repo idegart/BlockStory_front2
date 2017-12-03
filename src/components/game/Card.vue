@@ -2,29 +2,34 @@
   <el-card :body-style="{ padding: '0px' }">
     <img :src="getCover(game.cover)" class="game-image">
     <div style="padding: 14px; text-align: center">
-      <router-link :to="{name: 'Game', params: {alias: game.alias}}" class="game-link">
-        <span>{{game.title}}</span>
-      </router-link>
+      <div class="card-text">
+        <div class="card-text__title">
+          <router-link :to="{name: 'Game', params: {alias: game.alias}}" class="game-link">
+            <span>{{game.title}}</span>
+          </router-link>
+        </div>
+        <div class="card-text__author">
+          <router-link :to="{name: 'Profile', params: {nickname: game.user.nickname}}" class="user-link">
+            <span>Автор: {{game.user.nickname}}</span>
+          </router-link>
+        </div>
+      </div>
 
-      <br/>
+      <div class="card-tags">
+        <game-tag :game="game"></game-tag>
+      </div>
 
-      <router-link :to="{name: 'Profile', params: {nickname: game.user.nickname}}" class="user-link">
-        <span>{{game.user.nickname}}</span>
-      </router-link>
+      <div class="card-tags">
+        <game-tag-genre :genre="game.genre"></game-tag-genre>
+      </div>
 
-      <br/>
+      <div class="card-counters">
+        <game-tag-counters :game="game"></game-tag-counters>
+      </div>
 
-      <game-tag :game="game"></game-tag>
-
-      <br/>
-
-      <game-tag-counters :game="game"></game-tag-counters>
-
-      <br/>
-
-      <game-tag-allows :allows="game.allows"></game-tag-allows>
-
-      <br/>
+      <div class="card-allows">
+        <game-tag-allows :allows="game.allows"></game-tag-allows>
+      </div>
 
       <el-tooltip effect="dark"
                   placement="right">
@@ -44,6 +49,7 @@
             <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status=='published'" divided command="toSandbox">Unpublic</el-dropdown-item>
             <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='banned'" command="ban">Заблокировать</el-dropdown-item>
             <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status==='banned'" command="unban">Разблокировать</el-dropdown-item>
+            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&!game.allows.age" command="setAge">18+</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -55,12 +61,13 @@
 
 <script>
   import gameTag from './Tag.vue';
+  import gameTagGenre from './TagGenre.vue';
   import gameTagAllows from './TagAllows.vue';
   import gameTagCounters from './TagCounters.vue';
   export default {
     props: ['game'],
     components: {
-      gameTag,gameTagAllows,gameTagCounters
+      gameTag,gameTagAllows,gameTagCounters,gameTagGenre
     },
     methods: {
       getCover(path){
@@ -97,6 +104,16 @@
           case 'toSandbox':
             this.setStatus('new');
             return;
+          case 'setAge':
+            let data = {
+              hash: this.game.hash,
+              allow: 'age'
+            };
+            this.$http.post('game.update', data)
+              .then(res => {
+                console.log(res);
+                this.game.allows.age = true;
+              })
         }
       }
     },
@@ -109,12 +126,33 @@
 </script>
 
 <style scoped>
+  .card-text{
+    text-align: left;
+    line-height: 1em;
+  }
+  .card-text__author{
+    margin-top: 5px;
+  }
+  .game-link span{
+    font-size: 22px;
+    color: #475669;
+  }
+  .user-link span{
+    font-size: 18px;
+    color: #8492A6;
+  }
   .game-image{
     width: 100%;
   }
   .game-link{
     font-size: 25px;
     text-decoration: none;
+  }
+  .card-tags, .card-counters, .card-allows{
+    margin-top: 10px;
+  }
+  .card-allows{
+    margin-bottom: 10px;
   }
   .user-link{
     font-size: 20px;

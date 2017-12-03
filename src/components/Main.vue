@@ -2,7 +2,7 @@
   <div class="main">
     <vk-messages></vk-messages>
     <main-header></main-header>
-    <!--<main-games></main-games>-->
+    <main-games></main-games>
     <!--<main-users></main-users>-->
     <!--<main-contacts></main-contacts>-->
   </div>
