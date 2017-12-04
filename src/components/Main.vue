@@ -2,9 +2,10 @@
   <div class="main">
     <vk-messages></vk-messages>
     <main-header></main-header>
-    <main-games></main-games>
-    <!--<main-users></main-users>-->
-    <!--<main-contacts></main-contacts>-->
+    <main-description></main-description>
+    <main-users></main-users>
+    <main-authors></main-authors>
+    <main-donate></main-donate>
   </div>
 </template>
 
@@ -12,13 +13,14 @@
   import vkMessages from '../modules/VK-Widgets/vk-messages.vue';
 
   import mainHeader from './main/header.vue';
-  import mainGames from './main/games.vue';
+  import mainDescription from './main/description.vue';
   import mainUsers from './main/users.vue';
-  import mainContacts from './main/contacts.vue';
+  import mainAuthors from './main/authors.vue';
+  import mainDonate from './main/donate.vue';
     export default {
       components: {
         vkMessages,
-        mainHeader,mainGames,mainUsers,mainContacts
+        mainHeader,mainDescription,mainUsers,mainAuthors,mainDonate
       },
       metaInfo: {
         titleTemplate: '%s'

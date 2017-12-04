@@ -6,6 +6,12 @@
             justify="space-around">
       <el-col :xs="22" :sm="20" :md="18" :lg="16" :xl="14">
 
+        <el-alert
+          v-if="!games.length"
+          title="Мы так же как и Вы в ожидании новых творений"
+          type="info">
+        </el-alert>
+
         <el-row :gutter="10"
                 type="flex"
                 style="flex-wrap: wrap"

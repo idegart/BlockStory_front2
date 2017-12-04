@@ -22,6 +22,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/ru-RU'
 Vue.use(ElementUI, {locale});
 
+import VueAnalytics from 'vue-analytics'
+Vue.use(VueAnalytics, {
+  id: 'UA-108712094-1',
+  router
+});
+
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 

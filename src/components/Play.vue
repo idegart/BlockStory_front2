@@ -89,7 +89,7 @@
       },
       computed: {
         windowHeight(){
-          return this.$store.getters.getSize.height - 60 - 60;
+          return this.$store.getters.getSize.height;
         },
         renderStyle(){
 

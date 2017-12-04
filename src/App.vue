@@ -5,7 +5,7 @@
        element-loading-spinner="el-icon-loading"
        element-loading-background="rgba(0, 0, 0, 0.8)">
     <el-container :style="'min-height:'+ windowSize.height +'px'">
-      <el-header style="padding: 0" v-if="!editorMode">
+      <el-header style="padding: 0" v-if="visible">
         <main-navbar></main-navbar>
       </el-header>
 
@@ -13,7 +13,7 @@
         <router-view v-if="!authLoading"/>
       </el-main>
 
-      <el-footer style="padding: 0" v-if="!editorMode">
+      <el-footer style="padding: 0" v-if="visible">
         <main-footer></main-footer>
       </el-footer>
     </el-container>
@@ -83,6 +83,9 @@
       },
       editorMode(){
         return this.$store.getters.getEditorMode;
+      },
+      visible(){
+        return !(['Play','Editor'].indexOf(this.$route.name)+1)
       }
     },
     mounted(){

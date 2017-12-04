@@ -40,7 +40,7 @@
     },
     computed: {
       windowHeight(){
-        return this.$store.getters.getSize.height - 60 - 60;
+        return this.$store.getters.getSize.height - 60;
       },
     }
   }
@@ -48,9 +48,10 @@
 
 <style scoped>
   #particles-js {
-    background: url('../../assets/images/main.jpg') no-repeat;
+    background: url('/static/images/main/main.jpg');
     background-size: cover;
     background-position: center center;
+    background-repeat: no-repeat;
     opacity: 0.85;
     position: absolute;
     top: 0;
@@ -80,7 +81,7 @@
   .main-title h2 {
     font-size: 2em;
     font-family: 'Teko', sans-serif;
-    text-shadow: 8px 8px #000000;
+    text-shadow: 4px 4px #000000;
     text-transform: uppercase;
     margin: 0
   }

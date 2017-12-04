@@ -22,6 +22,13 @@
       </span>
     </el-tooltip>
 
+    <el-tooltip class="item" effect="dark" content="Сыграно раз" placement="top">
+      <span>
+        <icon name="play" style="color: #878D99"></icon>
+        {{ game.counter.plays.all }}
+      </span>
+    </el-tooltip>
+
   </div>
 </template>
 
