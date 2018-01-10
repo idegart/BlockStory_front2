@@ -1,7 +1,7 @@
 <template>
   <el-container :style="'height:'+ windowSize.height +'px'">
 
-    <el-aside v-if="toolbarVisible"
+    <el-aside v-show="toolbarVisible"
               width="300px"
               style="background-color: rgb(238, 241, 246)">
       <editor-toolbar></editor-toolbar>
@@ -12,6 +12,8 @@
       <editor-field style="position: relative" ref="editorContainer"></editor-field>
     </el-container>
 
+    <test-play></test-play>
+
   </el-container>
 </template>
 
@@ -21,10 +23,12 @@
   import editorHeader from './editor/Header.vue';
   import editorToolbar from './editor/Toolbar.vue';
   import editorField from './editor/Field.vue';
+
+  import testPlay from './editor/testPlay.vue';
     export default {
       props: ['game', 'chapter'],
       components: {
-        editorHeader,editorToolbar,editorField
+        editorHeader,editorToolbar,editorField,testPlay
       },
       methods: {
         setEditor(){

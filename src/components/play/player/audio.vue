@@ -1,14 +1,14 @@
 <template>
-  <div style="float: right">
-    <el-button v-if="!accessAudio" @click="getAudioAccess">
-      <icon name="music" :scale="0.8"></icon>
+  <div style="display: inline">
+    <el-button v-if="!accessAudio" @click="getAudioAccess" size="mini">
+      <icon name="music" :scale="0.6"></icon>
     </el-button>
 
     <div v-if="accessAudio">
       <el-button-group>
-        <el-button @click="setAudioVolume('plus')" icon="el-icon-plus"></el-button>
-        <el-button @click="denyAudio" icon="el-icon-close"></el-button>
-        <el-button @click="setAudioVolume('minus')" icon="el-icon-minus"></el-button>
+        <el-button size="mini" @click="setAudioVolume('plus')" icon="el-icon-plus"></el-button>
+        <el-button size="mini" @click="denyAudio" icon="el-icon-close"></el-button>
+        <el-button size="mini" @click="setAudioVolume('minus')" icon="el-icon-minus"></el-button>
       </el-button-group>
     </div>
 

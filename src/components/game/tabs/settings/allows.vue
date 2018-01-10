@@ -23,7 +23,7 @@
     </el-form-item>
 
     <el-form-item label="Майнинг">
-        <el-switch @change="updateSettings('mining')" v-model="game.allows.mining" disabled></el-switch>
+        <el-switch @change="updateSettings('mining')" v-model="game.allows.mining"></el-switch>
     </el-form-item>
   </div>
 

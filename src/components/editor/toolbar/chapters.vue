@@ -61,7 +61,7 @@
             });
         },
         addChapter(){
-          this.$prompt($t('enterTitleChapter'), $t('addChapter'), {
+          this.$prompt(this.$t('enterTitleChapter'), this.$t('addChapter'), {
             confirmButtonText: 'OK',
             cancelButtonText: 'Cancel',
             inputValidator: this.validateTitle,

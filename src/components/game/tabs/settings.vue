@@ -6,6 +6,7 @@
     <game-alias :game="game"></game-alias>
     <game-title :game="game"></game-title>
     <game-description :game="game"></game-description>
+    <game-share-edit :game="game"></game-share-edit>
     <game-genre :game="game"></game-genre>
     <game-tags :game="game"></game-tags>
     <game-cover :game="game"></game-cover>
@@ -35,11 +36,12 @@
   import gameImageCard from './settings/imageCard.vue';
   import gameAudios from './settings/audios.vue';
   import gameGenre from './settings/genre.vue';
+  import gameShareEdit from './settings/shareEdit.vue';
     export default {
       props: ['game'],
       components: {
         gameEditor,gameAlias,gameTitle,gameAllows,gameCover,gameBackground,gameBackColor,gameDescription,
-        gameTags,gameDelete,gamePublish,gameImageCard,gameAudios,gameGenre
+        gameTags,gameDelete,gamePublish,gameImageCard,gameAudios,gameGenre,gameShareEdit
       }
     }
 </script>

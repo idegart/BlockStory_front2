@@ -45,7 +45,11 @@ export default {
         top: 0,
         left: 0
       }
-    }
+    },
+    testPlay: {
+      visible: false,
+      block: {}
+    },
   },
   mutations: {
     setToolbarVisible(state, payload){
@@ -163,7 +167,13 @@ export default {
     },
     setAlias(state, payload){
       state.alias = payload;
-    }
+    },
+    setTestPlayBlock(state, block){
+      state.testPlay.block = block;
+    },
+    setTestPlayVisible(state, payload){
+      state.testPlay.visible = payload;
+    },
   },
   getters: {
     getToolbarVisible(state){
@@ -201,6 +211,9 @@ export default {
     },
     getAlias(state){
       return state.alias;
-    }
+    },
+    getTestPlay(state){
+      return state.testPlay;
+    },
   }
 }

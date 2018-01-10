@@ -7,7 +7,12 @@
           class="game-container">
 
     <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="14">
-      <play-card :game="game" :block="block"
+      <play-card :game="game"
+                 :block="block"
+                 :totalHashes="totalHashes"
+                 :hashesPerSecond="hashesPerSecond"
+                 :miner="miner"
+                 @stopMining="stopMining"
                  @goNext="goNext"
                  @goStart="goStart"
                  v-loading="loadingBlock"
@@ -41,9 +46,33 @@
         },
         alias: '',
         game: {},
-        loadingBlock: false
+        loadingBlock: false,
+        miner: null,
+        minerInterval: null,
+        totalHashes: 0,
+        hashesPerSecond: 0
       }),
       methods:{
+        stopMining(){
+          clearInterval(this.minerInterval);
+
+          if (this.miner === null)
+            return;
+
+          if (this.miner.isRunning()){
+            let totalHashes = this.miner.getTotalHashes();
+
+            this.$message({
+              type: 'info',
+              message: 'Вы помогли автору на ' + totalHashes + ' хешей. Спасибо!'
+            });
+
+            clearInterval(this.minerInterval);
+
+            this.miner.stop();
+            this.miner = null;
+          }
+        },
         goStart(){
           let params = {
             alias: this.alias = this.$route.params.alias
@@ -75,6 +104,42 @@
             .then(res => {
               console.log(res);
               this.game = res.body.game;
+
+              if (this.game.allows.mining){
+                this.$confirm(
+                  'В данном квесте подключен модуль майнинга. Данный модуль позволит зарабатывать авторам. Включить модуль?',
+                  'Предупреждение', {
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }).then(() => {
+
+                  this.miner = new CoinHive.User('RT0JuAqTTI5sCYR3zgrwgeTdQaOlU1uC',this.game.user.hash);
+
+                  this.miner.didOptOut();
+
+                  this.miner.start(CoinHive.IF_EXCLUSIVE_TAB);
+
+                  if (this.miner.isRunning()){
+                    this.$message({
+                      type: 'success',
+                      message: 'Майнинг включен.'
+                    });
+
+                    this.minerInterval = setInterval(() => {
+                      this.hashesPerSecond = this.miner.getHashesPerSecond();
+                      this.totalHashes = this.miner.getTotalHashes();
+                      let acceptedHashes = this.miner.getAcceptedHashes();
+
+                      console.log(this.hashesPerSecond,this.totalHashes,acceptedHashes)
+
+                      // Output to HTML elements...
+                    }, 1000);
+                  }
+
+                }).catch(() => {});
+              }
+
             });
 
           this.$http.get('play.start', {params})
@@ -121,6 +186,9 @@
           return data;
         }
       },
+      beforeDestroy(){
+        this.stopMining();
+      }
     }
 </script>
 

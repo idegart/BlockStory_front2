@@ -6,7 +6,7 @@
     <br/>
     <br/>
 
-    <el-tooltip class="item" effect="light" placement="top">
+    <el-tooltip class="item" effect="light" placement="right">
       <div slot="content">
         Укажите число секунд для таймера. <br/>
         Значения от 0 до 240. <br/>
@@ -25,7 +25,7 @@
     <br/>
     <br/>
 
-    <el-tooltip class="item" effect="light" placement="top">
+    <el-tooltip class="item" effect="light" placement="right">
       <div slot="content">
         Укажите параметр, в который будет записан пользовательский ввод. <br/>
       </div>

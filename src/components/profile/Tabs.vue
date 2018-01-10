@@ -15,6 +15,9 @@
     <el-tab-pane :label="$t('settings')" name="settings" v-if="user.hash==systemUser.hash">
       <tab-settings :user="user"></tab-settings>
     </el-tab-pane>
+    <el-tab-pane label="Баланс" name="balance" v-if="user.hash==systemUser.hash">
+      <tab-balance></tab-balance>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -24,10 +27,11 @@
   import tabComments from './tabs/comments.vue';
   import tabGames from './tabs/games.vue';
   import tabSettings from './tabs/settings.vue';
+  import tabBalance from './tabs/balance.vue';
     export default {
       props: ['user'],
       components: {
-        tabDonate,tabCommon,tabComments,tabGames,tabSettings
+        tabDonate,tabCommon,tabComments,tabGames,tabSettings,tabBalance
       },
       data: () => ({
         activeTab: 'common'

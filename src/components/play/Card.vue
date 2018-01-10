@@ -1,22 +1,36 @@
 <template>
   <el-card class="play-card"
-           :style="renderStyle"
-  >
+           :style="renderStyle">
 
-    <div slot="header" class="play-card__title">
+    <div slot="header" class="play-card__title" v-if="game">
 
-      <router-link :to="{name: 'Game', params:{alias: game.alias}}"class="play-card__title-link">
-        {{game.title}}
-      </router-link>
+      <el-row type="flex" justify="space-between" style="flex-wrap: wrap">
+        <el-col :xs="24" :sm="10" :md="10" :lg="12">
+          <router-link :to="{name: 'Game', params:{alias: game.alias}}"class="play-card__title-link">
+            {{game.title}}
+          </router-link>
+        </el-col>
+        <el-col :xs="24" :sm="14" :md="14" :lg="12" style="margin-top: 5px">
 
-      <audio-player :game="game" :block="block"></audio-player>
+            <el-button v-if="miner" @click="$emit('stopMining')" size="mini" type="warning">Stop mining ({{totalHashes}})</el-button>
 
-      <el-button @click="$emit('goStart')" style="float: right; margin: 0 15px" type="text">Начать сначала</el-button>
+            <el-button @click="$router.push({name: 'Game', params:{alias: game.alias}})" size="mini">Выйти</el-button>
+
+            <el-button @click="$emit('goStart')" style="margin: 0 15px" size="mini">Начать сначала</el-button>
+
+            <audio-player :game="game" :block="block"></audio-player>
+
+        </el-col>
+      </el-row>
 
     </div>
 
+    <div v-else slot="header" class="play-card__title">
+      <el-button @click="$emit('goStart')" style="margin: 0 15px" size="mini">Начать сначала</el-button>
+    </div>
+
     <text-block-select v-if="block.type=='text_block_select'"
-                       :data = block.data
+                       :data="game?block.data:block.extra"
                        @goNext="goNext"
     ></text-block-select>
 
@@ -27,7 +41,7 @@
   import audioPlayer from './player/audio.vue';
   import textBlockSelect from './types/textBlockSelect.vue';
     export default {
-      props: ['game','block'],
+      props: ['game','block','hashesPerSecond','totalHashes','miner'],
       components: {
         audioPlayer,textBlockSelect
       },
@@ -40,13 +54,16 @@
         renderStyle(){
           let data = {};
 
+          if (this.game===undefined)
+            return;
+
           let blockCard = this.block && this.block.data.images && this.block.data.images.cards
             && this.block.data.images.cards[0] && this.block.data.images.cards[0].url || null;
 
           if (blockCard){
             data.backgroundImage = 'url(' + blockCard + ')';
           } else {
-            if (this.game.extra.background.card){
+            if (this.game&&this.game.extra.background.card){
               data.backgroundImage = 'url(' + this.game.extra.background.card + ')';
             }
           }

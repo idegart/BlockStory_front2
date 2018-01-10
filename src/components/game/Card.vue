@@ -31,29 +31,22 @@
         <game-tag-allows :allows="game.allows"></game-tag-allows>
       </div>
 
-      <el-tooltip effect="dark"
-                  placement="right">
-        <div v-if="user.hash" slot="content">Вы можете<br/>загружать прохождения</div>
-        <div v-else slot="content">Чтобы сохранять<br/>необходимо зарегестрироваться</div>
-
-        <el-dropdown @click="startClick"
-                     @command="handleCommand"
-                     split-button
-                     type="primary"
-                     size="small">
-          Начать
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :disabled="true" command="continue" disabled>Продолжить</el-dropdown-item>
-            <el-dropdown-item :disabled="true" command="saves" disabled>Сохранения</el-dropdown-item>
-            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='published'" divided command="publish">Опубликовать</el-dropdown-item>
-            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status=='published'" divided command="toSandbox">Unpublic</el-dropdown-item>
-            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='banned'" command="ban">Заблокировать</el-dropdown-item>
-            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status==='banned'" command="unban">Разблокировать</el-dropdown-item>
-            <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&!game.allows.age" command="setAge">18+</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-
-      </el-tooltip>
+      <el-dropdown @click="startClick"
+                   @command="handleCommand"
+                   split-button
+                   type="primary"
+                   size="small">
+        Начать
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item :disabled="true" command="continue" disabled>Продолжить</el-dropdown-item>
+          <el-dropdown-item :disabled="true" command="saves" disabled>Сохранения</el-dropdown-item>
+          <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='published'" divided command="publish">Опубликовать</el-dropdown-item>
+          <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status=='published'" divided command="toSandbox">Unpublic</el-dropdown-item>
+          <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status!=='banned'" command="ban">Заблокировать</el-dropdown-item>
+          <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&game.status==='banned'" command="unban">Разблокировать</el-dropdown-item>
+          <el-dropdown-item v-if="(['admin','moderator'].indexOf(user.type)+1)&&!game.allows.age" command="setAge">18+</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
 
     </div>
   </el-card>

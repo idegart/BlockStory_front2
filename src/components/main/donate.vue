@@ -22,7 +22,7 @@
 
 
       <h3>Также можете помочь нам материально:</h3>
-      <div style="text-align: center;width: 100%;border-radius: 10px;padding: 10px;background-color: #51545A">
+      <div style="text-align: center;width: 100%;border-radius: 10px;padding: 10px;background-color: #51545A;font-family: Geneva, Arial, Helvetica, sans-serif;">
         <el-form ref="form" :model="form"
                  label-width="120px" action="https://money.yandex.ru/quickpay/confirm.xml" target="_blank">
           <input type="hidden" name="receiver" value="410011828509663">
